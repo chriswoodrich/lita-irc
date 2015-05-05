@@ -59,10 +59,11 @@ describe Lita::Adapters::IRC, lita: true do
 
   describe "#get_users" do
     it "gets all users after joining a new room" do
-      user = instance_double("Lita::User", name: "Carl")
-      user = instance_double("Lita::User", name: "Tristan")
-      user = instance_double("Lita::User", name: "Chris")
-      require 'byebug'; byebug
+      channel = instance_double("Cinch::Channel", name: "#foo", users: {
+        instance_double("Cinch::User", name: "Carl") => [],
+        instance_double("Cinch::User", name: "Tristan") => [],
+        instance_double("Cinch::User", name: "Chris") => []
+      })
       expect(subject.get_users('#foo').size).to eq(3)
     end
   end
