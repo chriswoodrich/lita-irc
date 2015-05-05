@@ -37,12 +37,6 @@ describe Lita::Adapters::IRC, lita: true do
     end
   end
 
-  it "gets all users after joining a new room" do
-    user = instance_double("Lita::User", name: "Carl")
-    user = instance_double("Lita::User", name: "Tristan")
-    user = instance_double("Lita::User", name: "Chris")
-    expect(subject.get_users.size).to eq(3)
-  end
 
   it "registers a plugin with Cinch" do
     expect(subject.cinch.config.plugins.plugins).to include(described_class::CinchPlugin)
@@ -57,6 +51,19 @@ describe Lita::Adapters::IRC, lita: true do
     it "joins a channel" do
       expect(subject.cinch).to receive(:join).with("#lita.io")
       subject.join("#lita.io")
+    end
+    it "calls get_users after joining" do
+      expect(subject.cinch).to receive(:get_users).with("#lita.io")
+    end
+  end
+
+  describe "#get_users" do
+    it "gets all users after joining a new room" do
+      user = instance_double("Lita::User", name: "Carl")
+      user = instance_double("Lita::User", name: "Tristan")
+      user = instance_double("Lita::User", name: "Chris")
+      require 'byebug'; byebug
+      expect(subject.get_users('#foo').size).to eq(3)
     end
   end
 
