@@ -37,6 +37,13 @@ describe Lita::Adapters::IRC, lita: true do
     end
   end
 
+  it "gets all users after joining a new room" do
+    user = instance_double("Lita::User", name: "Carl")
+    user = instance_double("Lita::User", name: "Tristan")
+    user = instance_double("Lita::User", name: "Chris")
+    expect(subject.get_users.size).to eq(3)
+  end
+
   it "registers a plugin with Cinch" do
     expect(subject.cinch.config.plugins.plugins).to include(described_class::CinchPlugin)
   end
