@@ -104,7 +104,7 @@ module Lita
 
       def get_users(room_id)
         channel = Cinch::Channel.new(room_id, cinch)
-        users = channel.users.keys.map({|u| u.nick})
+        users = channel.users.keys.map {|u| u.nick}
         Lita.logger.debug("Users in #{room_id}: #{users.join(' ')}")
         users
       end
