@@ -39,6 +39,7 @@ module Lita
 
       def join(room_id)
         cinch.join(room_id)
+        get_users(room_id)
       end
 
       def part(room_id)
@@ -104,7 +105,7 @@ module Lita
 
       def get_users(room_id)
         channel = Cinch::Channel.new(room_id, cinch)
-        users = channel.users.keys.map({|u| u.nick})
+        users = channel.users.keys.map {|u| u.nick}
         Lita.logger.debug("Users in #{room_id}: #{users.join(' ')}")
       end
 
