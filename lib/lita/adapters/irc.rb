@@ -45,6 +45,12 @@ module Lita
         cinch.part(room_id)
       end
 
+      def get_users(room_id)
+        channel = Cinch::Channel.new(room_id, cinch)
+        users = channel.users
+        Lita.logger.debug("Users in #{room_id}: #{users.join(' ')}")
+      end
+
       def send_messages(target, strings)
         if target.private_message?
           send_messages_to_user(target, strings)
