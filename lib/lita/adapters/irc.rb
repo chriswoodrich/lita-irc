@@ -106,6 +106,7 @@ module Lita
         channel = Cinch::Channel.new(room_id, cinch)
         users = channel.users.keys.map({|u| u.nick})
         Lita.logger.debug("Users in #{room_id}: #{users.join(' ')}")
+        users
       end
 
       def register_plugin
