@@ -88,6 +88,12 @@ module Lita
         end
       end
 
+      def get_users(room_id)
+        channel = Cinch::Channel.new(room_id, cinch)
+        users = channel.users
+        Lita.logger.debug("Users in #{room_id}: #{users.join(' ')}")
+      end
+
       def configure_logging
         if config.log_level
           cinch.loggers.level = config.log_level
